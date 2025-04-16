@@ -41,7 +41,6 @@
             margin-left: 400px;
         }
 
-      
         .page-header {
             text-align: center;
             margin: 3rem 0;
@@ -59,6 +58,38 @@
             font-size: 1.1rem;
             max-width: 700px;
             margin: 0 auto;
+        }
+
+        .category-filter {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-bottom: 2rem;
+        }
+
+        .category-btn {
+            padding: 0.5rem 1.25rem;
+            border-radius: 20px;
+            background-color: var(--white);
+            color: var(--text-color);
+            border: 1px solid #dee2e6;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .category-btn:hover {
+            background-color: #f1f3ff;
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .category-btn.active {
+            background-color: var(--primary-color);
+            color: var(--white);
+            border-color: var(--primary-color);
         }
 
         .grid-container {
@@ -117,17 +148,28 @@
         }
 
         .card-text {
-    color: var(--text-light);
-    margin-bottom: 1.75rem;
-    flex-grow: 1;
-    font-size: 0.95rem;
-    display: -webkit-box;
-    -webkit-line-clamp: 4;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
+            color: var(--text-light);
+            margin-bottom: 1.75rem;
+            flex-grow: 1;
+            font-size: 0.95rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 4;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
 
+        .card-category {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background-color: #f1f3ff;
+            color: var(--primary-color);
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            align-self: flex-start;
+        }
 
         .card-footer {
             display: flex;
@@ -196,18 +238,28 @@
 </head>
 <body>
     <div class="container">
-        <header class="page-header">
-            <h1>Our Blog</h1>
-            <p>Discover insightful articles, helpful tips, and the latest news in our collection of blog posts.</p>
-        </header>
+        <div class="page-header">
+            <h1>Our Blog Collection</h1>
+            <p>Discover insightful articles across various categories</p>
+        </div>
 
+        <div class="category-filter">
+            <button class="category-btn active" data-category="all">All</button>
+            <button class="category-btn" data-category="food-blogs">Food</button>
+            <button class="category-btn" data-category="travel-blogs">Travel</button>
+            <button class="category-btn" data-category="book-writing-blogs">Writing</button>
+            <button class="category-btn" data-category="book-blogs">Books</button>
+            <button class="category-btn" data-category="gaming-blogs">Gaming</button>
+        </div>
+     
         <div class="grid-container">
             <% blog.map((blogs)=>{ %>
-            <article class="card">
+            <article class="card" data-category="<%= blogs.category %>">
                 <div class="card-img-container">
                     <img class="card-img-top" src="/<%= blogs.image %>" alt="<%= blogs.title %>" />
                 </div>
                 <div class="card-body">
+                    <span class="card-category"><%= blogs.category.replace('-blogs', '').replace('-', ' ') %></span>
                     <h3 class="card-title"><%= blogs.title %></h3>
                     <p class="card-text"><%= blogs.about %></p>
                     <div class="card-footer">
@@ -225,6 +277,30 @@
             <% }) %>
         </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterButtons = document.querySelectorAll('.category-btn');
+            const blogCards = document.querySelectorAll('.card');
+
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    
+                    const category = button.dataset.category;
+                    
+                    blogCards.forEach(card => {
+                        if (category === 'all' || card.dataset.category === category) {
+                            card.style.display = 'flex';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        });
+    </script>
 </body>
 </html>
 <%- include("footer")%>

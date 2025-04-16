@@ -105,3 +105,33 @@ exports.resetPassword = async (req, res) => {
    }
  };
  
+ exports.changePasswordPage = async (req, res) => {
+  return res.render('changePassword')
+}
+
+exports.changePassword = async (req, res) => {
+  try {
+      const {newPass, curPass, confPass} = req.body;
+      if(curPass == req.user.password){
+          if(curPass == newPass){
+              console.log("Current and New Password both are Same.");
+              return res.redirect("back");
+          }else{
+              if(newPass == confPass){
+                  await Admin.findByIdAndUpdate(req.user._id, {password: newPass}, {new: true});
+                  console.log("Password is Changed...");
+                  return res.redirect("/dashboard");
+              }else{
+                  console.log("New and Confirm Password both are not Same.");
+                  return res.redirect("back");
+              }
+          }
+      }else{
+          console.log("Current password is not matched");
+          return res.redirect("back");
+      }
+  } catch (error) {
+      console.log(error);
+      return res.redirect("back");
+  }
+}

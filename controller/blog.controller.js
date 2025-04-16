@@ -121,6 +121,9 @@ const deleteBlog = async (req, res) => {
   }
 };
 
+const CategoryBlog=(req,res)=>{
+ 
+} 
 
 module.exports = {
   dashboard,
