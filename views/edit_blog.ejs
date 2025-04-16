@@ -1,0 +1,111 @@
+<%- include("header") %>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Article Submission Form</title>
+    <style>
+      .form-container {
+        max-width: 600px;
+        margin: 50px auto;
+        padding: 30px;
+        background-color: #f9f9f9;
+        border-radius: 12px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      form label {
+        display: block;
+        margin-top: 15px;
+        font-weight: bold;
+      }
+
+      form input,
+      form textarea,
+      form select {
+        width: 100%;
+        padding: 8px;
+        margin-top: 5px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+      }
+
+      form button {
+        margin-top: 20px;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      form button:hover {
+        background-color: #0056b3;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="form-container">
+      <h1 style="text-align: center;">Edit Article</h1>
+      <form action="/blog/update-blog/<%= blog._id %>"  method="post"  enctype="multipart/form-data">
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title" value="<%= blog.title %>" required />
+
+        <label for="about">About:</label>
+        <textarea id="about" name="about" rows="4" required><%= blog.about %></textarea>
+
+        <label for="image">Image:</label>
+        <input type="file" id="image" name="image" />
+        <% if (blog.image) { %>
+          <p>Current Image: <%= blog.image %></p>
+        <% } %>
+
+        <label for="write">Written By:</label>
+        <input type="text" id="written_by" name="write" value="<%= blog.write %>" required />
+
+        <label for="visited">Visited:</label>
+        <input type="number" id="visited" name="visited" min="0" value="<%= blog.visited %>" />
+
+        <label for="tags">Tags (comma separated):</label>
+        <input type="text" id="tags" name="tags" value="<%= blog.tags %>" />
+
+        <label for="date">Date:</label>
+        <input type="date" id="date" name="date" value="<%= blog.date ? new Date(blog.date).toISOString().substring(0, 10) : '' %>" />
+
+        <label for="time">Time:</label>
+        <input type="time" id="time" name="time" value="<%= blog.time %>" />
+
+        <label for="likes">Likes:</label>
+        <input type="number" id="likes" name="likes" min="0" value="<%= blog.likes %>" />
+
+        <label for="read">Read:</label>
+        <input type="number" id="read" name="read" value="<%= blog.read %>" required />
+
+        <label for="view">View:</label>
+        <input type="number" id="view" name="view" value="<%= blog.view %>" required />
+
+        <label for="blog-categories">Category:</label>
+        <select name="category" id="blog-categories">
+          <% const categories = [
+            "personal-blogs", "lifestyle-blogs", "fashion-beauty-blogs", "food-blogs",
+            "travel-blogs", "health-fitness-blogs", "parenting-blogs", "technology-gadget-blogs",
+            "business-finance-blogs", "marketing-seo-blogs", "diy-craft-blogs", "book-writing-blogs",
+            "news-politics-blogs", "entertainment-pop-culture-blogs", "educational-niche-blogs",
+            "photography-blogs", "gaming-blogs", "pet-blogs"
+          ]; %>
+          <% categories.forEach(category => { %>
+            <option value="<%= category %>" <%= blog.category === category ? 'selected' : '' %>>
+              <%= category.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()) %>
+            </option>
+          <% }); %>
+        </select>
+
+        <button type="submit">Update Article</button>
+      </form>
+    </div>
+  </body>
+</html>
+<%- include("footer") %>

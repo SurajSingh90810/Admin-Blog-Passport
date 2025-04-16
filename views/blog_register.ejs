@@ -1,0 +1,124 @@
+<%- include("header") %>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Article Submission Form</title>
+    <style>
+      .form-container {
+        max-width: 600px;
+        margin: 50px auto;
+        padding: 30px;
+        background-color: #f9f9f9;
+        border-radius: 12px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      form label {
+        display: block;
+        margin-top: 15px;
+        font-weight: bold;
+      }
+
+      form input,
+      form textarea,
+      form select {
+        width: 100%;
+        padding: 8px;
+        margin-top: 5px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+      }
+
+      form button {
+        margin-top: 20px;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      form button:hover {
+        background-color: #0056b3;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="form-container">
+      <h1 style="text-align: center;">Article Submission Form</h1>
+      <form action="/blog/blog_post" method="post" enctype="multipart/form-data">
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title" required />
+
+        <label for="about">About:</label>
+        <textarea id="about" name="about" rows="4" required></textarea>
+
+        <label for="image">Image:</label>
+        <input type="file" id="image" name="image"  required/>
+
+        <label for="written_by">Written By:</label>
+        <input type="text" id="written_by" name="write" required />
+
+        <label for="visited">Visited:</label>
+        <input type="number" id="visited" name="visited" min="0" required/>
+
+        <label for="tags">Tags:</label>
+        <input type="text" id="tags" name="tags" placeholder="travel, adventure, europe" required/>
+
+        <label for="date">Date:</label>
+        <input type="date" id="date" name="date" />
+
+        <label for="time">Time:</label>
+        <input type="time" id="time" name="time" />
+
+        <label for="likes">Likes:</label>
+        <input type="number" id="likes" name="likes" min="0" required/>
+
+        <label for="read">Read (minutes):</label>
+        <input type="number" id="read" name="read" required />
+
+        <label for="view">View:</label>
+        <input type="number" id="view" name="view" required />
+
+        <label for="blog-categories">Category:</label>
+        <select name="category" id="blog-categories">
+          <option value="personal-blogs">Personal Blogs</option>
+          <option value="lifestyle-blogs">Lifestyle Blogs</option>
+          <option value="fashion-beauty-blogs">Beauty Blogs</option>
+          <option value="fashion-beauty-blogs">Fashion Blogs</option>
+          <option value="food-blogs">Food Blogs</option>
+          <option value="travel-blogs">Travel Blogs</option>
+          <option value="health-fitness-blogs">Health Blogs</option>
+          <option value="health-fitness-blogs">Fitness Blogs</option>
+          <option value="parenting-blogs">Parenting Blogs</option>
+          <option value="technology-gadget-blogs">Gadget Blogs</option>
+          <option value="technology-gadget-blogs">Technology Blogs</option>
+          <option value="business-finance-blogs">Finance Blogs</option>
+          <option value="business-finance-blogs">Business Blogs</option>
+          <option value="marketing-seo-blogs">Marketing Blogs</option>
+          <option value="marketing-seo-blogs">SEO Blogs</option>
+          <option value="diy-craft-blogs">Craft Blogs</option>
+          <option value="diy-craft-blogs">DIY Blogs</option>
+          <option value="book-writing-blogs">Writing Blogs</option>
+          <option value="book-writing-blogs">Book Blogs</option>
+          <option value="news-politics-blogs">Politics Blogs</option>
+          <option value="news-politics-blogs">News Blogs</option>
+          <option value="entertainment-pop-culture-blogs">Entertainment Blogs</option>
+          <option value="entertainment-pop-culture-blogs">Cultural Blogs</option>
+          <option value="educational-niche-blogs">Niche Blogs</option>
+          <option value="educational-niche-blogs">Educational Blogs</option>
+          <option value="photography-blogs">Photography Blogs</option>
+          <option value="gaming-blogs">Gaming Blogs</option>
+          <option value="pet-blogs">Pet Blogs</option>
+        </select>
+
+        <button type="submit">Submit Article</button>
+      </form>
+    </div>
+  </body>
+</html>
+<%- include("footer") %>
