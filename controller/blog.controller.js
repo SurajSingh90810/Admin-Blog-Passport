@@ -36,8 +36,24 @@ const createBlog = async (req, res) => {
 };
 
 const listBlog = async (req, res) => {
-  const blog = await Blog.find();
-  res.render("blog_list", { blog });
+  const perPage = 3; // Number of blogs per page
+  const page = parseInt(req.query.page) || 1;
+
+  try {
+    const totalBlogs = await Blog.countDocuments();
+    const blog = await Blog.find()
+      .skip((page - 1) * perPage)
+      .limit(perPage);
+
+    res.render("blog_list", {
+      blog,
+      current: page,
+      pages: Math.ceil(totalBlogs / perPage),
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Server Error");
+  }
 };
 
 const viewBlog = async (req, res) => {
