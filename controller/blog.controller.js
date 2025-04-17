@@ -36,12 +36,22 @@ const createBlog = async (req, res) => {
 };
 
 const listBlog = async (req, res) => {
-  const perPage = 3; // Number of blogs per page
+  const perPage = 3; 
   const page = parseInt(req.query.page) || 1;
+  const category = req.query.category || 'all'; 
 
   try {
-    const totalBlogs = await Blog.countDocuments();
-    const blog = await Blog.find()
+    const totalBlogsQuery = category === 'all' 
+      ? Blog.countDocuments() 
+      : Blog.countDocuments({ category }); 
+
+    const totalBlogs = await totalBlogsQuery;
+
+    const blogQuery = category === 'all' 
+      ? Blog.find() 
+      : Blog.find({ category }); 
+
+    const blog = await blogQuery
       .skip((page - 1) * perPage)
       .limit(perPage);
 
@@ -49,6 +59,7 @@ const listBlog = async (req, res) => {
       blog,
       current: page,
       pages: Math.ceil(totalBlogs / perPage),
+      category, 
     });
   } catch (err) {
     console.error(err);
