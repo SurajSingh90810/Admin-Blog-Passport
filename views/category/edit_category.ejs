@@ -1,0 +1,102 @@
+<%- include("../header") %>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Edit Category</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 50px auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #333;
+    }
+
+    form label {
+      display: block;
+      margin-top: 20px;
+      font-weight: bold;
+      color: #555;
+    }
+
+    input[type="text"],
+    input[type="file"] {
+      width: 100%;
+      padding: 10px;
+      margin-top: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    img {
+      display: block;
+      margin-top: 10px;
+      max-width: 100%;
+      height: auto;
+      border-radius: 4px;
+    }
+
+    button {
+      margin-top: 30px;
+      width: 100%;
+      padding: 12px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Edit Category</h1>
+    <form action="/category/update-category/<%= categories._id %>" method="POST" enctype="multipart/form-data">
+      <label for="categoryName">Category Name</label>
+      <input
+        type="text"
+        id="categoryName"
+        name="categoryName"
+        value="<%= categories.categoryName %>"
+        required
+      />
+
+      <label>Current Image</label>
+      <img
+        src="<%= categories.categoryImage %>"
+        alt="Category Image"
+      />
+
+      <label for="image">Update Image</label>
+      <input type="file" id="image" name="categoryImage" />
+
+      <button type="submit">Update Category</button>
+    </form>
+  </div>
+</body>
+</html>
+
+<%- include("../footer") %>

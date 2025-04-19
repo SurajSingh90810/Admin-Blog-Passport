@@ -28,6 +28,7 @@ routes.post("/verifyOtp",verifyOtp)
 routes.post("/verify-Password",resetPassword)                                                                               
 routes.get("/change-password",isAuthenticated, changePasswordPage);                                                                               
 routes.post("/change-password", changePassword);                                                                               
+routes.use("/category",isAuthenticated, require("./category.routes"));
                                                                                
                                                                                
                                                                                

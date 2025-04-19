@@ -1,0 +1,111 @@
+<%- include("../header") %>
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Category List</title>
+    <style>
+      .container {
+      
+        margin: 0 auto;
+       
+      }
+      table {
+  
+      
+        width: 100%;
+      }
+      th,
+      td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+      }
+      th {
+        background-color: #f2f2f2;
+      }
+      tr:nth-child(even) {
+        background-color: #f9f9f9;
+      }
+      .images {
+        max-width: 100px;
+        max-height: 100px;
+      }
+      h1 {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      .no-categories {
+        text-align: center;
+        font-size: 18px;
+        margin: 20px 0;
+      }
+      .action-links {
+        white-space: nowrap;
+      }
+      .action-links a, 
+      .action-links button {
+        margin: 0 5px;
+        padding: 5px 10px;
+        text-decoration: none;
+        color: #fff;
+        background-color: #007bff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 14px;
+      }
+      .action-links button {
+        background-color: #dc3545;
+      }
+      .action-links a:hover {
+        background-color: #0056b3;
+      }
+      .action-links button:hover {
+        background-color: #c82333;
+      }
+    </style>
+  </head>
+  <body>
+    <br><br>
+    <div class="container">
+       
+      <% if (categories.length > 0) { %>
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Category Name</th>
+            <th>Category Image</th>
+            <th colspan="2">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% categories.forEach((category, index) => { %>
+          <tr>
+            <td><%= index + 1 %></td>
+            <td><%= category.categoryName %></td>
+            <td>
+              <img class="images" src="<%=category.categoryImage %>" alt="Category Image" />
+            </td>
+            <td class="action-links">
+              <a href="/category/edit-category/<%= category._id %>">Edit</a>
+            </td>
+            <td class="action-links">
+              <form action="/category/delete-category/<%= category._id %>">
+                <button type="submit">Delete</button>
+              </form>
+            </td>
+          </tr>
+          <% }); %>
+        </tbody>
+      </table>
+      <% } else { %>
+      <p class="no-categories">No categories found.</p>
+      <% } %>
+    </div>
+  </body>
+</html>
+<%- include("../footer") %>

@@ -1,0 +1,74 @@
+<%- include("../header") %>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Category Form</title>
+    <style>
+      .form-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: calc(100vh - 120px); /* Adjust based on header/footer height */
+        padding: 20px;
+      }
+      .form-wrapper {
+        width: 100%;
+        max-width: 500px;
+        background: #fff;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      }
+      form {
+        width: 100%;
+      }
+      label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: bold;
+      }
+      input[type="text"],
+      input[type="file"] {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 20px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        box-sizing: border-box;
+      }
+      button {
+        background-color: #4CAF50;
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        width: 100%;
+        font-size: 16px;
+      }
+      button:hover {
+        background-color: #45a049;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="form-container">
+      <div class="form-wrapper">
+        <form action="/category/add-category" method="post" enctype="multipart/form-data">
+          <h2 style="text-align: center; margin-bottom: 20px;">Add New Category</h2>
+          
+          <label for="categoryName">Category Name:</label>
+          <input type="text" id="categoryName" name="categoryName" required />
+          
+          <label for="image">Category Image:</label>
+          <input type="file" id="image" name="categoryImage" required />
+          
+          <button type="submit">Submit</button>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
+<%- include("../footer") %>
